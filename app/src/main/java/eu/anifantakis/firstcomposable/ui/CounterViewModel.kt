@@ -10,10 +10,14 @@ class CounterViewModel() : ViewModel() {
     val count: State<Int> = _count
 
     fun increment() {
-        _count.value++
+        if (count.value < 10) {
+            _count.value++
+        }
     }
 
     fun decrement() {
-        _count.value--
+        if (count.value > 0) {
+            _count.value--
+        }
     }
 }

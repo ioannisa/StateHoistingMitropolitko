@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +36,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirstComposableTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    WrongCounterScreen()
+                    CounterScreenWithViewModel(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -44,7 +47,9 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun WrongCounterScreen() {
+fun WrongCounterScreen(
+    modifier: Modifier = Modifier
+) {
     // A plain Kotlin variable (not observable by Compose)
     var counter = 0
 
@@ -68,9 +73,11 @@ fun WrongCounterScreen() {
 }
 
 @Composable
-fun SimpleCounterScreen() {
+fun SimpleCounterScreen(
+    modifier: Modifier = Modifier
+) {
     // Local state inside the composable
-    var count by remember { mutableIntStateOf(0) }
+    var count by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -91,7 +98,9 @@ fun SimpleCounterScreen() {
 }
 
 @Composable
-fun HoistedCounterScreen() {
+fun HoistedCounterScreen(
+    modifier: Modifier = Modifier
+) {
     // State variable that Compose observes
     var count by remember { mutableIntStateOf(0) }
 
@@ -129,7 +138,10 @@ fun CounterScreen(
 }
 
 @Composable
-fun CounterScreenWithViewModel(counterViewModel: CounterViewModel = viewModel()) {
+fun CounterScreenWithViewModel(
+    modifier: Modifier = Modifier,
+    counterViewModel: CounterViewModel = viewModel()
+) {
     // Observing state from the ViewModel
     val count by counterViewModel.count
 

@@ -35,17 +35,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirstComposableTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(modifier = Modifier.padding(innerPadding))
+                    WrongCounterScreen()
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(modifier: Modifier = Modifier) {
-    //WrongCounterScreen()
-    HoistedCounterScreen()
 }
 
 
@@ -145,12 +139,4 @@ fun CounterScreenWithViewModel(counterViewModel: CounterViewModel = viewModel())
         onIncrement = { counterViewModel.increment() },
         onDecrement = { counterViewModel.decrement() }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FirstComposableTheme {
-        Greeting()
-    }
 }
